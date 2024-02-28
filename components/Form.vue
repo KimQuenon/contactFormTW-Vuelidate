@@ -1,6 +1,9 @@
 <script setup>
+import { ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, minLength, numeric, helpers } from '@vuelidate/validators';
+
+const successMessage = ref('');
 
 const formData = reactive({
     name: '',
@@ -40,12 +43,21 @@ const v$ = useVuelidate(rules, formData);
 const handleSubmit = () => {
     v$.value.$validate();
     if (!v$.value.$error) {
-        //    Some code
+        successMessage.value = 'Votre message a bien été envoyé.';
+        Object.keys(formData).forEach(key => {
+            formData[key] = '';
+            });
+
+            // Reset validation errors
+            v$.value.$reset();
     }
 };
 </script>
 <template>
     <form @submit.prevent="handleSubmit">
+        <div v-if="successMessage" class="bg-green-200 text-green-800 border border-green-600 rounded-md px-4 py-2 mb-4">
+                {{ successMessage }}
+        </div>
         <div>
             <label>Nom</label>
             <input type="text" v-model="formData.name" class="form-control" placeholder="Votre nom...*"
