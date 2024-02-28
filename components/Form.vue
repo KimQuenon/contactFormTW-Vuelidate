@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, minLength, numeric, helpers } from '@vuelidate/validators';
 
+//init successMessage
 const successMessage = ref('');
 
+//tab reactive (v-model in template)
 const formData = reactive({
     name: '',
     surname: '',
@@ -13,6 +15,7 @@ const formData = reactive({
     message: '',
 });
 
+//validation rules + empty fields
 const rules = computed(() => {
     return {
         name: {
@@ -38,18 +41,24 @@ const rules = computed(() => {
     };
 });
 
+//validation with vuelidate
 const v$ = useVuelidate(rules, formData);
 
+//submit form
 const handleSubmit = () => {
     v$.value.$validate();
+
+    //if submitted form is valid
     if (!v$.value.$error) {
         successMessage.value = 'Votre message a bien été envoyé.';
+
+        //clearing fields
         Object.keys(formData).forEach(key => {
             formData[key] = '';
-            });
+        });
 
-            // Reset validation errors
-            v$.value.$reset();
+        // Reset validation errors
+        v$.value.$reset();
     }
 };
 </script>
@@ -61,7 +70,11 @@ const handleSubmit = () => {
             </div>
             <div class="mb-4">
                 <label>Nom<span class="text-red-600">*</span></label>
-                <input type="text" v-model="formData.name" class="form-input block w-full border border-gray-300 rounded px-3 py-2" placeholder="Votre nom...*"
+                <input
+                    type="text"
+                    v-model="formData.name"
+                    class="form-input block w-full border border-gray-300 rounded px-3 py-2"
+                    placeholder="Votre nom..."
                     @change="v$.name.$touch" :class="{
                         'border-red-500 focus:border-red-500': v$.name.$error,
                         'border-[#42d392] ': !v$.name.$invalid,
@@ -72,7 +85,11 @@ const handleSubmit = () => {
             </div>
             <div class="mb-4">
                 <label>Prénom<span class="text-red-600">*</span></label>
-                <input type="text" v-model="formData.surname" class="form-input block w-full border border-gray-300 rounded px-3 py-2" placeholder="Votre prénom...*"
+                <input
+                    type="text"
+                    v-model="formData.surname" 
+                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                    placeholder="Votre prénom..."
                     @change="v$.surname.$touch" :class="{
                         'border-red-500 focus:border-red-500': v$.surname.$error,
                         'border-[#42d392] ': !v$.surname.$invalid,
@@ -83,7 +100,11 @@ const handleSubmit = () => {
             </div>
             <div class="mb-4">
                 <label>Email<span class="text-red-600">*</span></label>
-                <input type="email" v-model="formData.email" class="form-input block w-full border border-gray-300 rounded px-3 py-2" placeholder="Votre adresse mail...*"
+                <input
+                    type="email" 
+                    v-model="formData.email" 
+                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                    placeholder="Votre adresse mail..."
                     @change="v$.email.$touch" :class="{
                         'border-red-500 focus:border-red-500': v$.email.$error,
                         'border-[#42d392] ': !v$.email.$invalid,
@@ -94,7 +115,11 @@ const handleSubmit = () => {
             </div>
             <div class="mb-4">
                 <label>Téléphone<span class="text-red-600">*</span></label>
-                <input type="tel" v-model="formData.phone" class="form-input block w-full border border-gray-300 rounded px-3 py-2" placeholder="Votre numéro de téléphone..."                 
+                <input
+                    type="tel" 
+                    v-model="formData.phone" 
+                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                    placeholder="Votre numéro de téléphone..."                 
                     @change="v$.phone.$touch" :class="{
                         'border-red-500 focus:border-red-500': v$.phone.$error,
                         'border-[#42d392] ': !v$.phone.$invalid,
@@ -105,7 +130,11 @@ const handleSubmit = () => {
             </div>
             <div class="mb-4">
                 <label>Message<span class="text-red-600">*</span></label>
-                <textarea type="text" v-model="formData.message" class="form-input block w-full border border-gray-300 rounded px-3 py-2" placeholder="Commencez à rédiger..."
+                <textarea 
+                    type="text" 
+                    v-model="formData.message" 
+                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                    placeholder="Commencez à rédiger..."
                     @change="v$.message.$touch" :class="{
                         'border-red-500 focus:border-red-500': v$.message.$error,
                         'border-[#42d392] ': !v$.message.$invalid,
