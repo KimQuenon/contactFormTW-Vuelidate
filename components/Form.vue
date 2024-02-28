@@ -68,77 +68,121 @@ const handleSubmit = () => {
             <div v-if="successMessage" class="bg-green-200 text-green-800 border border-green-600 rounded-md px-4 py-2 mb-4">
                     {{ successMessage }}
             </div>
+
             <div class="mb-4">
                 <label>Nom<span class="text-red-600">*</span></label>
-                <input
-                    type="text"
-                    v-model="formData.name"
-                    class="form-input block w-full border border-gray-300 rounded px-3 py-2"
-                    placeholder="Votre nom..."
-                    @change="v$.name.$touch" :class="{
-                        'border-red-500 focus:border-red-500': v$.name.$error,
-                        'border-[#42d392] ': !v$.name.$invalid,
+                <div class="relative">
+                    <input
+                        type="text"
+                        v-model="formData.name"
+                        class="form-input block w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="Votre nom..."
+                        @change="v$.name.$touch" :class="{
+                            'border-red-500 focus:border-red-500': v$.name.$error,
+                            'border-[#42d392] ': !v$.name.$invalid,
                     }">
+                    <Icon
+                        v-if="!v$.name.$invalid || v$.name.$error"
+                        class="absolute right-2 top-2 h-6 text-green-500"
+                        :class="{ 'text-green-500': !v$.name.$invalid, 'text-red-500': v$.name.$error }"
+                        :name="`heroicons-solid:${!v$.name.$error ? 'check-circle' : 'exclamation'}`"
+                    />
+                </div>
                 <div class="text-xs text-red-500" v-if="v$.name.$error">{{
                     v$.name.$errors[0].$message
                 }}</div>
             </div>
+
             <div class="mb-4">
                 <label>Prénom<span class="text-red-600">*</span></label>
-                <input
-                    type="text"
-                    v-model="formData.surname" 
-                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
-                    placeholder="Votre prénom..."
-                    @change="v$.surname.$touch" :class="{
-                        'border-red-500 focus:border-red-500': v$.surname.$error,
-                        'border-[#42d392] ': !v$.surname.$invalid,
+                <div class="relative">
+                    <input
+                        type="text"
+                        v-model="formData.surname" 
+                        class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                        placeholder="Votre prénom..."
+                        @change="v$.surname.$touch" :class="{
+                            'border-red-500 focus:border-red-500': v$.surname.$error,
+                            'border-[#42d392] ': !v$.surname.$invalid,
                     }">
+                    <Icon
+                        v-if="!v$.surname.$invalid || v$.surname.$error"
+                        class="absolute right-2 top-2 h-6 text-green-500"
+                        :class="{ 'text-green-500': !v$.surname.$invalid, 'text-red-500': v$.surname.$error }"
+                        :name="`heroicons-solid:${!v$.surname.$error ? 'check-circle' : 'exclamation'}`"
+                    />
+                </div>
                 <div class="text-xs text-red-500" v-if="v$.surname.$error">{{
                     v$.surname.$errors[0].$message
                 }}</div>
             </div>
+
             <div class="mb-4">
                 <label>Email<span class="text-red-600">*</span></label>
-                <input
-                    type="email" 
-                    v-model="formData.email" 
-                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
-                    placeholder="Votre adresse mail..."
-                    @change="v$.email.$touch" :class="{
-                        'border-red-500 focus:border-red-500': v$.email.$error,
-                        'border-[#42d392] ': !v$.email.$invalid,
-                    }">
+                <div class="relative">
+                    <input
+                        type="email" 
+                        v-model="formData.email" 
+                        class="form-input block w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="Votre adresse mail..."
+                        @change="v$.email.$touch" :class="{
+                            'border-red-500 focus:border-red-500': v$.email.$error,
+                            'border-[#42d392] ': !v$.email.$invalid,
+                        }">
+                    <Icon
+                        v-if="!v$.email.$invalid || v$.email.$error"
+                        class="absolute right-2 top-2 h-6 text-green-500"
+                        :class="{ 'text-green-500': !v$.email.$invalid, 'text-red-500': v$.email.$error }"
+                        :name="`heroicons-solid:${!v$.email.$error ? 'check-circle' : 'exclamation'}`"
+                    />
+                </div>
                 <div class="text-xs text-red-500" v-if="v$.email.$error">{{
                     v$.email.$errors[0].$message
                 }}</div>
             </div>
+
             <div class="mb-4">
                 <label>Téléphone<span class="text-red-600">*</span></label>
-                <input
-                    type="tel" 
-                    v-model="formData.phone" 
-                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
-                    placeholder="Votre numéro de téléphone..."                 
-                    @change="v$.phone.$touch" :class="{
-                        'border-red-500 focus:border-red-500': v$.phone.$error,
-                        'border-[#42d392] ': !v$.phone.$invalid,
+                <div class="relative">
+                    <input
+                        type="tel" 
+                        v-model="formData.phone" 
+                        class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                        placeholder="Votre numéro de téléphone..."                 
+                        @change="v$.phone.$touch" :class="{
+                            'border-red-500 focus:border-red-500': v$.phone.$error,
+                            'border-[#42d392] ': !v$.phone.$invalid,
                     }">
+                    <Icon
+                        v-if="!v$.phone.$invalid || v$.phone.$error"
+                        class="absolute right-2 top-2 h-6 text-green-500"
+                        :class="{ 'text-green-500': !v$.phone.$invalid, 'text-red-500': v$.phone.$error }"
+                        :name="`heroicons-solid:${!v$.phone.$error ? 'check-circle' : 'exclamation'}`"
+                    />
+                </div>
                 <div class="text-xs text-red-500" v-if="v$.phone.$error">{{
                     v$.phone.$errors[0].$message
                 }}</div>
             </div>
             <div class="mb-4">
                 <label>Message<span class="text-red-600">*</span></label>
-                <textarea 
-                    type="text" 
-                    v-model="formData.message" 
-                    class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
-                    placeholder="Commencez à rédiger..."
-                    @change="v$.message.$touch" :class="{
-                        'border-red-500 focus:border-red-500': v$.message.$error,
-                        'border-[#42d392] ': !v$.message.$invalid,
+                <div class="relative">
+                    <textarea 
+                        type="text" 
+                        v-model="formData.message" 
+                        class="form-input block w-full border border-gray-300 rounded px-3 py-2" 
+                        placeholder="Commencez à rédiger..."
+                        @change="v$.message.$touch" :class="{
+                            'border-red-500 focus:border-red-500': v$.message.$error,
+                            'border-[#42d392] ': !v$.message.$invalid,
                     }"></textarea>
+                    <Icon
+                        v-if="!v$.message.$invalid || v$.message.$error"
+                        class="absolute right-2 top-2 h-6 text-green-500"
+                        :class="{ 'text-green-500': !v$.message.$invalid, 'text-red-500': v$.message.$error }"
+                        :name="`heroicons-solid:${!v$.message.$error ? 'check-circle' : 'exclamation'}`"
+                    />
+                </div>
                 <div class="text-xs text-red-500" v-if="v$.message.$error">{{
                     v$.message.$errors[0].$message
                 }}</div>
